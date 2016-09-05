@@ -264,16 +264,19 @@ library(ggplot2)
 
 # windows預設的中文編碼不是utf8
 # windows使用者請執行以下指令
-star_01_menu <- fread("01_star/01_big5/star_01_menu.csv",
+star_01_menu <- fread("R_EDA_by_KA_201609/01_star/01_big5/star_01_menu.csv",
                       data.table = FALSE)
-star_02_store <- fread("01_star/01_big5/star_02_store.csv",
+star_02_store <- fread("R_EDA_by_KA_201609/01_star/01_big5/star_02_store.csv",
                        data.table = FALSE)
 
 # mac 與 linux 使用者請執行以下指令
-star_01_menu <- fread("01_star/02_utf8/star_01_menu.csv",
-                      data.table = FALSE)
-star_02_store <- fread("01_star/02_utf8/star_02_store.csv",
-                       data.table = FALSE)
+
+if(.Platform$OS.type != "windows"){
+  star_01_menu <- fread("R_EDA_by_KA_201609/01_star/02_utf8/star_01_menu.csv",
+                        data.table = FALSE)
+  star_02_store <- fread("R_EDA_by_KA_201609/01_star/02_utf8/star_02_store.csv",
+                         data.table = FALSE)
+}
 
 # 試試看你的中文顯示是否正常呢?
 star_01_menu
