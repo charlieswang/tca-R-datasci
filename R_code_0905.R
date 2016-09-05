@@ -343,16 +343,16 @@ star_02_store  %>% filter( star_address %like% "忠孝" & star_address %like% "�
 
 
 # 讀入資料
-read.csv("05_homework_pokemon/pokemon721.csv")
+read.csv("R_EDA_by_KA_201609/05_homework_pokemon/pokemon721.csv")
 library(readxl)
-read.xlsx("05_homework_pokemon/pokemon721.xlsx")
+readxl::read_excel("R_EDA_by_KA_201609/05_homework_pokemon/pokemon721.xlsx")
 library(data.table)
-fread("05_homework_pokemon/pokemon721.csv")
+fread("R_EDA_by_KA_201609/05_homework_pokemon/pokemon721.csv")
 
 # 讀進來後，還是要存起來
-pokemon <- read.csv("05_homework_pokemon/pokemon721.csv")
-pokemon <- read.xlsx("05_homework_pokemon/pokemon721.xlsx")
-pokemon <- fread("05_homework_pokemon/pokemon721.csv")
+pokemon <- read.csv("R_EDA_by_KA_201609/05_homework_pokemon/pokemon721.csv")
+pokemon <- read_excel("R_EDA_by_KA_201609/05_homework_pokemon/pokemon721.xlsx")
+pokemon <- fread("R_EDA_by_KA_201609/05_homework_pokemon/pokemon721.csv")
 
 # 資料輸出
 # 系統內建
@@ -360,7 +360,13 @@ write.csv(pokemon,"test1.csv",row.names = FALSE)
 
 # 輸出excel格式
 library(openxlsx)
+# windows 有時需要調整ZIP所在目錄
+# ubuntu 有時也需要
+# MAC不用設定
+# Sys.setenv(R_ZIPCMD= "C:/Rtools/bin/zip")
 write.xlsx(pokemon,"test1.xlsx" )
+
+
 
 
 ##############################
@@ -413,22 +419,24 @@ left_join(product_price_table,sales_record_table , key="ice")  %>%
 
 # windows 系統請執行以下程式碼
 
-star_01_menu <- fread("01_star/01_big5/star_01_menu.csv",
+star_01_menu <- fread("R_EDA_by_KA_201609/01_star/01_big5/star_01_menu.csv",
                       data.table = FALSE)
-star_02_store <- fread("01_star/01_big5/star_02_store.csv",
+star_02_store <- fread("R_EDA_by_KA_201609/01_star/01_big5/star_02_store.csv",
                        data.table = FALSE)
 
-star_03_order_main <- fread("01_star/01_big5/star_03_order_main.csv",data.table = FALSE)
-star_04_order_detail <- fread("01_star/01_big5/star_04_order_detail.csv",data.table = FALSE)
+star_03_order_main <- fread("R_EDA_by_KA_201609/01_star/01_big5/star_03_order_main.csv",data.table = FALSE)
+star_04_order_detail <- fread("R_EDA_by_KA_201609/01_star/01_big5/star_04_order_detail.csv",data.table = FALSE)
 
 # mac 與 linux 使用者請執行以下指令
-star_01_menu <- fread("01_star/02_utf8/star_01_menu.csv",
-                      data.table = FALSE)
-star_02_store <- fread("01_star/02_utf8/star_02_store.csv",
-                       data.table = FALSE)
-
-star_03_order_main <- fread("01_star/02_utf8/star_03_order_main.csv",data.table = FALSE)
-star_04_order_detail <- fread("01_star/02_utf8/star_04_order_detail.csv",data.table = FALSE)
+if(.Platform$OS.type != "windows"){
+  star_01_menu <- fread("R_EDA_by_KA_201609/01_star/02_utf8/star_01_menu.csv",
+                        data.table = FALSE)
+  star_02_store <- fread("R_EDA_by_KA_201609/01_star/02_utf8/star_02_store.csv",
+                         data.table = FALSE)
+  
+  star_03_order_main <- fread("R_EDA_by_KA_201609/01_star/02_utf8/star_03_order_main.csv",data.table = FALSE)
+  star_04_order_detail <- fread("R_EDA_by_KA_201609/01_star/02_utf8/star_04_order_detail.csv",data.table = FALSE)
+}
 
 # 左連結範例1
 star_join_1 <- left_join( star_03_order_main ,star_02_store ,by = "store_id")  
@@ -463,10 +471,13 @@ star_join_3  %>% group_by(zip_code) %>% summarise( total_sales = sum(price*sale_
 # tidyr
 
 # windows 系統請執行以下程式碼
-mrt  <- read.csv("02_MRT/01_big5/mrt_201605.csv")
+mrt  <- read.csv("R_EDA_by_KA_201609/02_MRT/01_big5/mrt_201605.csv")
 
 # mac 系統請執行以下程式碼
-mrt  <-  read.csv("02_MRT/02_utf8/mrt_201605.csv")
+if(.Platform$OS.type != "windows"){
+  mrt  <-  read.csv("R_EDA_by_KA_201609/02_MRT/02_utf8/mrt_201605.csv")
+}
+
 
 
 # windows  
@@ -726,8 +737,4 @@ w0_friday <- today()-wday(today())+ 1 +
               if_else( wday(today())>= 6 , 5 ,  -2 )
 
 
-# windows 有時需要調整ZIP所在目錄
-# ubuntu 有時也需要
-# MAC不用設定
-Sys.setenv(R_ZIPCMD= "C:/Rtools/bin/zip")
- 
+
