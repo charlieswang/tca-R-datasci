@@ -737,8 +737,20 @@ w0_friday <- today()-wday(today())+ 1 +
               if_else( wday(today())>= 6 , 5 ,  -2 )
 
 
+returnWeekFirstDay <- function(First_wday = 5, Date = today()){
+  # First_wday = 5 # 邏輯也是使用 wday 的結果
+  # Date = today()+7;Date
+  weekFirstDay <- Date- (wday(Date)- 1) + 
+    if_else(wday(Date) >= First_wday, First_wday-1, First_wday-1-7)
+  return(weekFirstDay)
+}
 
-
+returnWeekFirstDay(6,ymd("2016-09-09"))
+returnWeekFirstDay(6,ymd("2016-09-13"))
+returnWeekFirstDay(6,ymd("2016-09-16"))
+# 第一天是星期三
+returnWeekFirstDay(4,ymd("2016-09-16"))
+returnWeekFirstDay(4,ymd("2016-09-13"))
 
 
 
