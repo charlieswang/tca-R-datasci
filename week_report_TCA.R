@@ -5,7 +5,8 @@
 # 實務工作中請自行設定 
 # 可用 getwd() 檢查
 
-setwd("/Users/LaiR/Desktop/R_EDA_by_KA_201609")
+#setwd("/Users/LaiR/Desktop/R_EDA_by_KA_201609")
+setwd("E:/Rworking/tca-R-datasci")
 
 # 載入套件
 library(data.table)
@@ -21,9 +22,9 @@ library(readr)
 # 為了避免中文編碼的問題，故只連結 star_03_order_main star_04_order_detail
 # 故缺乏價格、中文品名、中文地址等資訊
 star_03_order_main <- 
-  fread("01_star/01_big5/star_03_order_main.csv",data.table = FALSE)
+  fread("R_EDA_by_KA_201609/01_star/01_big5/star_03_order_main.csv",data.table = FALSE)
 star_04_order_detail <-
-  fread("01_star/01_big5/star_04_order_detail.csv",data.table = FALSE)
+  fread("R_EDA_by_KA_201609/01_star/01_big5/star_04_order_detail.csv",data.table = FALSE)
 
 raw_data <-  
   left_join( star_03_order_main , star_04_order_detail , by = "order_id")
@@ -89,6 +90,6 @@ w2_cups_top10
 # R 還能輸出更華麗的文件(含圖表)，請待下期資料視覺化課程介紹!
 write.csv(w1_cups,"w1_cups.csv" , row.names = FALSE)
 write.csv(w2_cups,"w2_cups.csv", row.names = FALSE)
-write.csv(w1_cups_top10,"w1_cups_top10", row.names = FALSE)
-write.csv(w2_cups_top10,"w2_cups_top10", row.names = FALSE)
+write.csv(w1_cups_top10,"w1_cups_top10.csv", row.names = FALSE)
+write.csv(w2_cups_top10,"w2_cups_top10.csv", row.names = FALSE)
 

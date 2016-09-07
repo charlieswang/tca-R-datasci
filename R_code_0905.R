@@ -555,13 +555,13 @@ today() %>% wday
 wday(today())
 
 #本週第1天
-w0_start = today() - wday( today()) + 1
+w0_start = today() - (wday( today()) - 1)
 w0_start
 #前1週第一天
 w1_start = w0_start - 7
 w1_start
 #前2週最後一天
-w2_start = w0_start -7-7
+w2_start = w0_start -7 -7
 w2_start
 
 # 週報:求算 上週 vs 上上週
@@ -735,6 +735,14 @@ star_join_3 %>%
 ## 補充教材 一開開始是星期五
 w0_friday <- today()-wday(today())+ 1 +
               if_else( wday(today())>= 6 , 5 ,  -2 )
+
+
+
+
+
+
+
+
 
 
 
